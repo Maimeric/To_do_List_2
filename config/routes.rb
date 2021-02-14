@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-  get 'users/profile'
+  devise_for :users
+  get 'users/profile', as: 'user_root'
   root "tasks#index"
-  # get 'tasks/index'
-  get 'user/profile', as: 'user_root'
   resources :tasks
 end
