@@ -14,7 +14,9 @@
       <div><%= message %></div>
     <% end %>
   </div>
-
+  <div>
+    <%= form.select :status, ["New", "Progress", "Done"] %>
+  </div>
   <div>
     <%= form.submit %>
   </div>
