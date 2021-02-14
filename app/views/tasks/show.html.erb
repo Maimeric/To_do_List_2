@@ -5,10 +5,42 @@
     <span class="btn btn-outline-primary">
       <%= link_to "Edit", edit_task_path(@task) %>
     </span>
+    <% if current_user.admin? %>
       <span class="btn btn-outline-primary">
-        <%= link_to "Destroy", task_path(@task),
-                    method: :delete,
-                    data: { confirm: "Are you sure?" } %>
-    </span>
+          <%= link_to "Destroy", task_path(@task),
+                      method: :delete,
+                      data: { confirm: "Are you sure?" } %>
+      </span>
+    <% end %>
   <% end %>
 </div>
+
+<h2>Comments</h2>
+<% @task.comments.each do |task| %>
+  <p>
+    <strong>Commenter:</strong>
+    <%= task.commenter %>
+  </p>
+
+  <p>
+    <strong>Comment:</strong>
+    <%= task.body %>
+  </p>
+<% end %>
+
+<% if user_signed_in? %>
+  <h2>Add a comment:</h2>
+  <%= form_with model: [@task, @task.comments.build], local: true do |form| %>
+    <p>
+      <%= form.label :commenter %><br>
+      <%= form.text_field :commenter %>
+    </p>
+    <p>
+      <%= form.label :body %><br>
+      <%= form.text_area :body %>
+    </p>
+    <p>
+      <%= form.submit %>
+    </p>
+  <% end %>
+<% end %>
